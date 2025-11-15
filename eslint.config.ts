@@ -1,3 +1,3 @@
 import { createConfig } from './src'
 
-export default createConfig(import.meta.dirname)
+export default createConfig({ tsconfigRootDir: import.meta.dirname })

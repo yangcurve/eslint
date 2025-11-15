@@ -14,8 +14,35 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import { type Config as PrettierConfig } from 'prettier'
 import tseslint from 'typescript-eslint'
 
-export const createConfig = (tsconfigRootDir: string) =>
+const nextConfig = defineConfig(
+  next.configs['core-web-vitals'],
+  react.configs.flat.recommended,
+  react.configs.flat['jsx-runtime'],
+  reactHooks.configs.flat.recommended,
+  globalIgnores(['.next']),
+  {
+    files: ['**/*.tsx', '**/*.jsx'],
+    settings: { react: { version: 'detect' } },
+    rules: {
+      'react/display-name': 'off',
+      'react/react-in-jsx-scope': 'off',
+    },
+  },
+)
+
+export const createConfig = ({
+  tsconfigRootDir,
+  isNext = false,
+  configs = [],
+}: {
+  tsconfigRootDir: string
+  isNext?: boolean
+  configs?: Parameters<typeof defineConfig>
+}) =>
   defineConfig(
+    ...configs,
+    isNext ? nextConfig : [],
+
     eslint.configs.recommended,
     tseslint.configs.recommended,
 
@@ -23,15 +50,10 @@ export const createConfig = (tsconfigRootDir: string) =>
     import_.flatConfigs.typescript,
     import_.flatConfigs.errors,
 
-    next.configs['core-web-vitals'],
-    react.configs.flat.recommended,
-    react.configs.flat['jsx-runtime'],
-    reactHooks.configs.flat.recommended,
-
-    globalIgnores(['.next', 'node_modules']),
+    globalIgnores(['node_modules']),
 
     {
-      files: ['**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx'],
+      files: ['**/*.ts', '**/*.js'],
       languageOptions: {
         parser: tseslint.parser,
         parserOptions: {
@@ -48,7 +70,6 @@ export const createConfig = (tsconfigRootDir: string) =>
         'unused-imports': unusedImports,
       },
       settings: {
-        react: { version: 'detect' },
         'import/resolver': {
           typescript: {
             bun: true,
@@ -138,9 +159,6 @@ export const createConfig = (tsconfigRootDir: string) =>
             ],
           },
         ],
-
-        'react/display-name': 'off',
-        'react/react-in-jsx-scope': 'off',
       },
     },
   )
