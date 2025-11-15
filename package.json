@@ -3,14 +3,13 @@
   "author": "yangcurve <utsu0621@gmail.com>",
   "repository": "github:yangcurve/eslint",
   "main": "index.ts",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "scripts": {
     "lint": "eslint --fix"
   },
   "dependencies": {
     "@eslint/js": "^9.39.1",
     "@next/eslint-plugin-next": "^16.0.3",
-    "@types/node": "^24.10.1",
     "@types/prettier": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^8.46.4",
     "@typescript-eslint/parser": "^8.46.4",
@@ -31,5 +30,8 @@
     "prettier-plugin-tailwindcss": "^0.7.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
   }
 }
