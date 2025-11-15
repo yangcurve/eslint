@@ -40,9 +40,6 @@ export const createConfig = ({
   configs?: Parameters<typeof defineConfig>
 }) =>
   defineConfig(
-    ...configs,
-    isNext ? nextConfig : [],
-
     eslint.configs.recommended,
     tseslint.configs.recommended,
 
@@ -161,4 +158,7 @@ export const createConfig = ({
         ],
       },
     },
+
+    isNext ? nextConfig : [],
+    ...configs,
   )
