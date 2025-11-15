@@ -33,13 +33,15 @@ const nextConfig = defineConfig(
 export const createConfig = ({
   tsconfigRootDir,
   isNext = false,
-  configs = [],
+  prettierConfig = {},
 }: {
   tsconfigRootDir: string
   isNext?: boolean
-  configs?: Parameters<typeof defineConfig>
+  prettierConfig?: PrettierConfig
 }) =>
   defineConfig(
+    isNext ? nextConfig : [],
+
     eslint.configs.recommended,
     tseslint.configs.recommended,
 
@@ -105,6 +107,7 @@ export const createConfig = ({
             singleQuote: true,
             experimentalTernaries: true,
             plugins: ['prettier-plugin-tailwindcss'],
+            ...prettierConfig,
           } satisfies PrettierConfig,
         ],
 
@@ -158,7 +161,4 @@ export const createConfig = ({
         ],
       },
     },
-
-    isNext ? nextConfig : [],
-    ...configs,
   )
