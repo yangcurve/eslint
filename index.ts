@@ -1,4 +1,5 @@
 import eslint from '@eslint/js'
+import next from '@next/eslint-plugin-next'
 import import_ from 'eslint-plugin-import'
 import n from 'eslint-plugin-n'
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths'
@@ -6,15 +7,15 @@ import perfectionist from 'eslint-plugin-perfectionist'
 // @ts-expect-error ...
 import preferArrow from 'eslint-plugin-prefer-arrow'
 import prettier from 'eslint-plugin-prettier'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
 import unusedImports from 'eslint-plugin-unused-imports'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import { type Config as PrettierConfig } from 'prettier'
 import tseslint from 'typescript-eslint'
-import { nextConfig } from './next'
 
-export const createConfig = (tsconfigRootDir: string, isNext = false) =>
+export const createConfig = (tsconfigRootDir: string) =>
   defineConfig(
-    isNext ? nextConfig : [],
     eslint.configs.recommended,
     tseslint.configs.recommended,
 
@@ -22,10 +23,15 @@ export const createConfig = (tsconfigRootDir: string, isNext = false) =>
     import_.flatConfigs.typescript,
     import_.flatConfigs.errors,
 
-    globalIgnores(['node_modules']),
+    next.configs['core-web-vitals'],
+    react.configs.flat.recommended,
+    react.configs.flat['jsx-runtime'],
+    reactHooks.configs.flat.recommended,
+
+    globalIgnores(['.next', 'node_modules']),
 
     {
-      files: ['**/*.ts', '**/*.js'],
+      files: ['**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx'],
       languageOptions: {
         parser: tseslint.parser,
         parserOptions: {
@@ -42,6 +48,7 @@ export const createConfig = (tsconfigRootDir: string, isNext = false) =>
         'unused-imports': unusedImports,
       },
       settings: {
+        react: { version: 'detect' },
         'import/resolver': {
           typescript: {
             bun: true,
@@ -131,6 +138,9 @@ export const createConfig = (tsconfigRootDir: string, isNext = false) =>
             ],
           },
         ],
+
+        'react/display-name': 'off',
+        'react/react-in-jsx-scope': 'off',
       },
     },
   )
