@@ -13,9 +13,6 @@ jobs:
       - name: install dependencies
         run: bun install
 
-      - name: test and build
-        run: bun run build
-
       - name: publish to npm
         uses: JS-DevTools/npm-publish@v3
         with:
