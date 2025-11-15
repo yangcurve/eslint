@@ -44,7 +44,6 @@ export const createConfig = (tsconfigRootDir: string, isNext = false) =>
       settings: {
         'import/resolver': {
           typescript: {
-            alwaysTryTypes: true,
             bun: true,
           },
         },
