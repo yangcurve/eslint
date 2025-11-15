@@ -1,3 +1,3 @@
-import { base } from './base'
+import { base } from './src/base'
 
 export default base
