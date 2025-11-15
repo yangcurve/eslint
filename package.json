@@ -3,11 +3,11 @@
   "author": "yangcurve <utsu0621@gmail.com>",
   "repository": "github:yangcurve/eslint",
   "main": "src/index.ts",
-  "version": "0.1.2",
+  "version": "0.1.9",
   "scripts": {
     "lint": "eslint --fix"
   },
-  "devDependencies": {
+  "dependencies": {
     "@eslint/js": "^9.39.1",
     "@next/eslint-plugin-next": "^16.0.3",
     "@types/node": "^24.10.1",
@@ -28,7 +28,6 @@
     "eslint-plugin-tailwindcss": "^3.18.2",
     "eslint-plugin-unused-imports": "^4.3.0",
     "jiti": "^2.6.1",
-    "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.4"

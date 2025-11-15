@@ -1,3 +1,3 @@
-import { base } from './src/base'
+import { createConfig } from './src'
 
-export default base
+export default createConfig(import.meta.dirname)
