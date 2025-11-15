@@ -1,5 +1,7 @@
 {
   "name": "@yangcurve/eslint",
+  "author": "yangcurve <utsu0621@gmail.com>",
+  "repository": "github:yangcurve/eslint",
   "main": "index.ts",
   "version": "0.1.0",
   "private": true,
