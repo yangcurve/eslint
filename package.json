@@ -3,7 +3,7 @@
   "author": "yangcurve <utsu0621@gmail.com>",
   "repository": "github:yangcurve/eslint",
   "main": "index.ts",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "scripts": {
     "lint": "eslint --fix"
   },
