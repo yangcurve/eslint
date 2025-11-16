@@ -14,22 +14,6 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import { type Config as PrettierConfig } from 'prettier'
 import tseslint from 'typescript-eslint'
 
-const nextConfig = defineConfig(
-  next.configs['core-web-vitals'],
-  react.configs.flat.recommended,
-  react.configs.flat['jsx-runtime'],
-  reactHooks.configs.flat.recommended,
-  globalIgnores(['.next']),
-  {
-    files: ['**/*.tsx', '**/*.jsx'],
-    settings: { react: { version: 'detect' } },
-    rules: {
-      'react/display-name': 'off',
-      'react/react-in-jsx-scope': 'off',
-    },
-  },
-)
-
 export const createConfig = ({
   tsconfigRootDir,
   isNext = false,
@@ -40,8 +24,6 @@ export const createConfig = ({
   prettierConfig?: PrettierConfig
 }) =>
   defineConfig(
-    isNext ? nextConfig : [],
-
     eslint.configs.recommended,
     tseslint.configs.recommended,
 
@@ -49,10 +31,19 @@ export const createConfig = ({
     import_.flatConfigs.typescript,
     import_.flatConfigs.errors,
 
-    globalIgnores(['node_modules']),
+    ...(isNext ?
+      [
+        next.configs['core-web-vitals'],
+        react.configs.flat.recommended,
+        react.configs.flat['jsx-runtime'],
+        reactHooks.configs.flat.recommended,
+      ]
+    : []),
+
+    globalIgnores(['node_modules', '.next']),
 
     {
-      files: ['**/*.ts', '**/*.js'],
+      files: ['**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx'],
       languageOptions: {
         parser: tseslint.parser,
         parserOptions: {
@@ -69,6 +60,7 @@ export const createConfig = ({
         'unused-imports': unusedImports,
       },
       settings: {
+        ...(isNext ? { react: { version: 'detect' } } : {}),
         'import/resolver': {
           typescript: {
             bun: true,
@@ -159,6 +151,12 @@ export const createConfig = ({
             ],
           },
         ],
+        ...(isNext ?
+          {
+            'react/display-name': 'off',
+            'react/react-in-jsx-scope': 'off',
+          }
+        : {}),
       },
     },
   )
